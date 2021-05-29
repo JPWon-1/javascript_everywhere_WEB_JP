@@ -1,51 +1,34 @@
-<img src="cover.png" width="200" align="right" />
+# Project Diary
 
-# JavaScript Everywhere Web Application
+- 2021-05-29 : 리액트를 오랜만에 써보았는데, 기초적인것만 다루어 보았지만 정말이지 하나도 기억이 안나서 처음부터 다시 시작하는 기분이었다.
+우선 npm library들을 버젼을 맞추어 주었는데 
+`DevTools warning: SharedArrayBuffer will require cross-origin isolation`
+얘 는 왜 사라지지 않는것인가.
+- 글로벌 스타일 , css-in-js 방식으로 스타일들을 적용해주었다.
+   - src\components 하위 폴더에 Button, Header, Layout, Navigation 을 만들었다
+   - GlobalStyle을 만들어 프로젝트 전반에 사용 될 css를 재정의 해주었다
+        
+~~~
+component의 앞글자는 대문자로 만들어야 한다. 이유는 HTML 요소와의 충돌을 피하기 위해서다.
+~~~
 
-This repository contains code examples for the web application chapters of [_JavaScript Everywhere_](https://www.jseverywhere.io/) by Adam D. Scott, published by O'Reilly Media
+- 각 페이지별 이동을 위해
+`import { BrowserRouter as Router, Route } from 'react-router-dom';`
+를 해주었고 사용은 밑에와 같이
 
-## Getting Help
+```jsx
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-The best place to get help is our Spectrum channel, [spectrum.chat/jseverywhere](https://spectrum.chat/jseverywhere).
-
-## Directory Structure
-
-- `/src` If you are following along with the book, this is the directory where you should perform your development.
-- `/solutions` This directory contains the solutions for each chapter. If you get stuck, these are available for you to consult.
-- `/final` This directory contains the final working project
-
-## To Run the Application
-
-When developing locally, you can start the app by running:
-
+const Pages = props => {
+    return (
+        <Router>
+            <Layout>
+                <Route exact path="/" component={Home} />
+                <Route path="/mynotes" component={MyNotes} />
+                <Route path="/favorites" component={Favorites} />
+            </Layout>
+        </Router>
+    );
+};
 ```
-npm run dev
-```
-
-If you are interested running the completed application, you can run:
-
-```
-npm run final
-```
-
-## Related Repositories
-
-- [API 🗄️ ](https://github.com/javascripteverywhere/api)
-- [Mobile 🤳](https://github.com/javascripteverywhere/mobile)
-- [Desktop 🖥️](https://github.com/javascripteverywhere/desktop)
-
-## Code of Conduct
-
-In the interest of fostering an open and welcoming environment, I pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation..
-
-This project pledges to follow the [Contributor's Covenant](http://contributor-covenant.org/version/1/4/).
-
-## License
-
-Copyright 2019 Adam D. Scott
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+처럼 썻다.
