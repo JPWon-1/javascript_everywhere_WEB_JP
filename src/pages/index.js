@@ -5,9 +5,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 // 라우팅 임포트
 import Home from './home';
-import MyNotes from './mynotes';
+import MyNotes from './myNotes';
 import NotePage from './note';
 import Favorites from './favorites';
+
+//signUp 경로 임포트
+import SignUp from './signUp';
+
 
 //라우팅 정의
 const Pages = () => {
@@ -15,7 +19,8 @@ const Pages = () => {
         <Router>
             <Layout>
                 <Route exact path="/" component={Home} />
-                <Route path="/mynotes" component={MyNotes} />
+                <Route path="/signUp" component={SignUp} />
+                <Route path="/myNotes" component={MyNotes} />
                 <Route path="/favorites" component={Favorites} />
                 <Route path="/note/:id" component={NotePage} />
             </Layout>
