@@ -4,8 +4,8 @@ import { useMutation, useApolloClient, gql } from '@apollo/client';
 import UserForm from '../components/UserForm';
 
 const SIGNIN_USER = gql`
-  mutation signIn($email: String, $password: String!) {
-    signIn(email: $email, password: $password)
+  mutation signIn($username:String, $email: String, $password: String!) {
+    signIn(username: $username, email: $email, password: $password)
   }
 `;
 

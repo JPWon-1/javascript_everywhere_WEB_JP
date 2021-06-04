@@ -1,30 +1,63 @@
+// import React and our routing dependencies
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useQuery, gql } from '@apollo/client';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
-// 공유 레이아웃 컴포넌트 임포트
+// import our shared layout component
 import Layout from '../components/Layout';
-// 라우팅 임포트
+
+// import our routes
 import Home from './home';
-import MyNotes from './myNotes';
-import NotePage from './note';
+import MyNotes from './mynotes';
 import Favorites from './favorites';
+import Note from './note';
+import SignUp from './signup';
+import SignIn from './signin';
 
-//signUp 경로 임포트
-import SignUp from './signUp';
+const IS_LOGGED_IN = gql`
+  {
+    isLoggedIn @client
+  }
+`;
 
-
-//라우팅 정의
-const Pages = () => {
+// define our routes
+const Pages = props => {
     return (
         <Router>
             <Layout>
                 <Route exact path="/" component={Home} />
-                <Route path="/signUp" component={SignUp} />
-                <Route path="/myNotes" component={MyNotes} />
-                <Route path="/favorites" component={Favorites} />
-                <Route path="/note/:id" component={NotePage} />
+                <PrivateRoute path="/mynotes" component={MyNotes} />
+                <PrivateRoute path="/favorites" component={Favorites} />
+                <Route path="/note/:id" component={Note} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/signin" component={SignIn} />
             </Layout>
         </Router>
+    );
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const { loading, error, data } = useQuery(IS_LOGGED_IN);
+    // if the data is loading, display a loading message
+    if (loading) return <p>Loading...</p>;
+    // if there is an error fetching the data, display an error message
+    if (error) return <p>Error!</p>;
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                data.isLoggedIn === true ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: '/signin',
+                            state: { from: props.location }
+                        }}
+                    />
+                )
+            }
+        />
     );
 };
 
