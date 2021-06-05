@@ -44,36 +44,39 @@ const NavList = styled.ul`
 `;
 
 const Navigation = () => {
-    return (
-        <Nav>
-            <NavList>
-                <li>
-                    <Link to="/">
-                        <span aria-hidden="true" role="img">
-                            🏠
+  return (
+    <Nav>
+      <NavList>
+        <li>
+          <Link to="/">
+            <span aria-hidden="true" role="img">
+              🏠
             </span>
             Home
           </Link>
-                </li>
-                <li>
-                    <Link to="/mynotes">
-                        <span aria-hidden="true" role="img">
-                            📓
+        </li>
+        <li>
+          <Link to="/mynotes">
+            <span aria-hidden="true" role="img">
+              📓
             </span>
             My Notes
           </Link>
-                </li>
-                <li>
-                    <Link to="/favorites">
-                        <span aria-hidden="true" role="img">
-                            🌟
+        </li>
+        <li>
+          <Link to="/favorites">
+            <span aria-hidden="true" role="img">
+              🌟
             </span>
             Favorites
           </Link>
-                </li>
-            </NavList>
-        </Nav>
-    );
+        </li>
+        <li>
+          <Link to="/new">NEW NOTE!</Link>
+        </li>
+      </NavList>
+    </Nav>
+  );
 };
 
 export default Navigation;
